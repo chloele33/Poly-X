@@ -1,0 +1,170 @@
+global proc updateNumGroups( ) {
+	int $v1 = `intField -q -v numPlacements`;
+	for ($i = 1; $i <= $v1; $i++) {
+	    $label = "Group" + $i;
+	    $name = "layoutGroup" + $i;
+	    if (!`frameLayout -exists $name`) {
+	    	frameLayout -label $label -collapsable 1 -parent scrollList -width 290 $name;
+	    	setParent ..;
+	    }
+	}
+	$v1++;
+	$name = "layoutGroup" + $v1;
+	while (`frameLayout -exists $name`) {
+		deleteUI $name;
+		$v1++;
+		$name = "layoutGroup" + $v1;
+	}
+};
+
+
+global proc okLabel( ) {
+	
+	$groupName = `optionMenu -q -v groupMenu`;
+	$name = "scroll" + $groupName;
+	$label = `textField -q -text objectLabel`;
+	$parent = "layout" + $groupName;
+
+	$shapeName = `ls -sl -o`;
+
+	//polyEvaluate -boundingBox pPlane1;
+
+	if (size($shapeName)) {
+		//python("addExampleObject(\"Group2\", \"sink\", \"square3\")");
+
+		if (!`textScrollList -exists $name`) {
+			textScrollList -append $label -parent $parent $name;
+			//for ($i = 0; $i < size($shapeName); $i++) {
+				//python("addExampleObject(" + $group + ", " +  $label + ", " + $shapeName[$i] + ")");
+			//}
+		}
+		else {
+			textScrollList -e -append $label $name;
+		}
+
+		deleteUI labelWindow;
+	}
+	else {
+
+	}
+
+	
+};
+
+
+global proc cancelLabel( ) {
+	deleteUI labelWindow;
+};
+
+
+
+
+global proc helpWindow( ) {
+    window -title "Help" helpWindow;
+    showWindow helpWindow;
+};
+
+global proc aboutWindow( ) {
+    window -title "About" aboutWindow;
+    showWindow aboutWindow;
+};
+
+
+global proc labelWindow( ) {
+
+    window -title "Label Object" -widthHeight 200 200 labelWindow;
+    	frameLayout -labelVisible false -marginWidth 200;
+    		columnLayout;
+    			textField -w 200 -pht "Label selected object" objectLabel;
+    			optionMenu -label "Group" groupMenu;
+    				int $v1 = `intField -q -v numPlacements`;
+					for ($i = 1; $i <= $v1; $i++) {
+						$label = "Group" + $i;
+            			menuItem -label $label;
+            		}
+    		setParent ..;
+    		rowLayout  -numberOfColumns 2;
+	    		button -label "Ok" -w 100 -command "okLabel()";
+	    		button -label "Cancel" -w 100 -command "cancelLabel()";
+	    	setParent ..;
+	    setParent ..;
+    showWindow labelWindow;
+};
+
+global proc loadJsonFile( ) {
+
+};
+
+
+global proc getText( ) {
+	float $v1 = `intSliderGrp -q -v slider1`;
+};
+
+
+global proc mainWindow( ) {
+    
+    window -title "Poly-X";
+
+	    frameLayout -labelVisible false;
+	    	rowLayout  -numberOfColumns 3;
+	    		button -label "Help" -w 70 -command "helpWindow()";
+	    		button -label "About" -w 70 -command "aboutWindow()";
+	    		button -label "Load JSON" -w 70 -command "loadJsonFile()";
+	    	setParent ..;
+	    setParent ..;
+
+
+    	frameLayout -labelVisible false -marginWidth 200;
+    		rowLayout  -numberOfColumns 2;
+    			text -label "Number of examples: ";
+    			//intFieldGrp -label "Number of Example Placements: " -columnWidth 1 100 numPlacements;
+    			intField -width 200 -cc "updateNumGroups()" numPlacements;
+    		setParent ..;
+    		
+	    	rowLayout  -numberOfColumns 2;
+	    		button -label "Label Object" -w 100 -command "labelWindow()";
+	    		
+	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
+	    		frameLayout -labelVisible false -bv true - height 300 -width 300;
+	    			scrollLayout scrollList;
+	    				//int $v1 = `intField -q -v numPlacements`;
+	    				//for ($i = 1; $i <= 5; $i++) {
+	    				//	$label = "Group" + $i;
+	    				//	$name = "layoutGroup" + $i;
+	    				//	frameLayout -label $label -collapsable 1 $name;
+	    				//	setParent ..;
+	    				//}
+	    				//frameLayout -label "Group 1" -collapsable 1;
+	    				//	text -label "Mirror";
+	    				//	text -label "Sink";
+	    				//setParent ..;
+	    				//frameLayout -label "Group 2" -collapsable 1;
+	    				//	text -label "Mirror";
+	    				//	text -label "Sink";
+	    				//setParent ..;
+	    			setParent ..;
+	    		setParent ..;
+	    	setParent ..;
+
+	    	columnLayout;
+	    		button -label "Learn Selected Shapes Placement" -w 200 -command "learnPlacement()";
+	    	setParent ..;
+	    setParent ..;
+
+	    frameLayout -labelVisible false;
+	    	rowLayout  -numberOfColumns 3;
+	    		button -label "Propagate" -w 70 -command "propagate()";
+	    		button -label "Cancel" -w 70 -command "cancelProp()";
+	    		button -label "Save" -w 70 -command "saveProp()";
+	    	setParent ..;
+	    setParent ..;
+
+    showWindow;
+};
+
+
+
+$menu = `menu -l "Poly-X" -p MayaWindow`;
+menuItem -l "Poly-X Window" -c "mainWindow";
+menuItem -l "Help" -c "helpWindow";
+menuItem -l "About" -c "aboutWindow";

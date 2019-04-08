@@ -1,0 +1,62 @@
+﻿  Performing Custom Build Tools
+..\vec.h(89): warning 362: operator= ignored
+..\vec.h(94): warning 389: operator[] ignored (consider using %extend)
+..\vec.h(95): warning 389: operator[] ignored (consider using %extend)
+..\vec.h(137): warning 362: operator= ignored
+..\vec.h(142): warning 389: operator[] ignored (consider using %extend)
+..\vec.h(143): warning 389: operator[] ignored (consider using %extend)
+..\vec.h(193): warning 362: operator= ignored
+..\vec.h(194): warning 389: operator[] ignored (consider using %extend)
+..\vec.h(195): warning 389: operator[] ignored (consider using %extend)
+..\Tesy.i(14): warning 453: Can't apply (std::vector< std::vector< float > > &INOUT). No typemaps are defined.
+..\vec.h(103): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+..\vec.h(104): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+..\vec.h(105): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+..\vec.h(106): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(107): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(108): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(109): warning 503: Can't wrap 'operator /' unless renamed to a valid identifier.
+..\vec.h(110): warning 503: Can't wrap 'operator ^' unless renamed to a valid identifier.
+..\vec.h(111): warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+..\vec.h(112): warning 503: Can't wrap 'operator !=' unless renamed to a valid identifier.
+..\vec.h(153): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+..\vec.h(154): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+..\vec.h(155): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+..\vec.h(156): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(157): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(158): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(159): warning 503: Can't wrap 'operator /' unless renamed to a valid identifier.
+..\vec.h(160): warning 503: Can't wrap 'operator ^' unless renamed to a valid identifier.
+..\vec.h(161): warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+..\vec.h(162): warning 503: Can't wrap 'operator !=' unless renamed to a valid identifier.
+..\vec.h(179): warning 503: Can't wrap 'operator <<' unless renamed to a valid identifier.
+..\vec.h(199): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+..\vec.h(200): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+..\vec.h(201): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+..\vec.h(202): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(203): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+..\vec.h(204): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+  vec.cpp
+  Tesy_wrap.cxx
+c:\python27\include\pymath.h(22): warning C4273: 'round': inconsistent dll linkage
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(521): note: see previous definition of 'round'
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtgmath.h(208): warning C4273: 'round': inconsistent dll linkage
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(521): note: see previous definition of 'round'
+  segment.cpp
+..\segment.cpp(11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(22): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(31): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(41): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(43): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(46): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(48): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(52): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\segment.cpp(55): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+LINK : fatal error LNK1104: cannot open file 'python27_d.lib'

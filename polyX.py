@@ -7,6 +7,9 @@ import maya.OpenMayaMPx as OpenMayaMPx
 # Import the Python wrappers for MEL commands
 import maya.cmds as cmds
 
+import maya.mel
+import os
+
 # The name of the command.
 kPluginCmdName = "pyPolyX"
 
@@ -32,7 +35,7 @@ def initializePlugin(mobject):
         sys.stderr.write("Failed to register command: %s\n" % kPluginCmdName)
         raise
 
-    maya.mel.eval("source \"" + mplugin.loadPath() + "/menus.mel\"")
+    maya.mel.eval("source \"" + mplugin.loadPath() + "/menu.mel\"")
 
 # Uninitialize the plugin
 def uninitializePlugin(mobject):
@@ -42,3 +45,5 @@ def uninitializePlugin(mobject):
     except:
         sys.stderr.write("Failed to unregister command: %s\n" % kPluginCmdName)
         raise
+
+    maya.mel.eval("deleteUI $menu;");
