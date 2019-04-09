@@ -585,8 +585,11 @@ class Scene(_object):
     def relationship(self, *args):
         return _Tesy.Scene_relationship(self, *args)
 
-    def calculateRelationships(self, *args):
-        return _Tesy.Scene_calculateRelationships(self, *args)
+    def calculateRelationshipsVoid(self):
+        return _Tesy.Scene_calculateRelationshipsVoid(self)
+
+    def calculateRelationships(self, polyMain):
+        return _Tesy.Scene_calculateRelationships(self, polyMain)
     __swig_destroy__ = _Tesy.delete_Scene
     __del__ = lambda self: None
 Scene_swigregister = _Tesy.Scene_swigregister
