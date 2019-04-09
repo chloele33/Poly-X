@@ -572,18 +572,21 @@ class Scene(_object):
     if _newclass:
         label = _swig_property(_Tesy.Scene_label_get, _Tesy.Scene_label_set)
 
-    def __init__(self, l):
-        this = _Tesy.new_Scene(l)
+    def __init__(self, *args):
+        this = _Tesy.new_Scene(*args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
 
+    def addPolygon(self, poly):
+        return _Tesy.Scene_addPolygon(self, poly)
+
     def relationship(self, *args):
         return _Tesy.Scene_relationship(self, *args)
 
-    def calculateRelationships(self):
-        return _Tesy.Scene_calculateRelationships(self)
+    def calculateRelationships(self, *args):
+        return _Tesy.Scene_calculateRelationships(self, *args)
     __swig_destroy__ = _Tesy.delete_Scene
     __del__ = lambda self: None
 Scene_swigregister = _Tesy.Scene_swigregister
