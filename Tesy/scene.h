@@ -15,7 +15,10 @@ public:
 
     std::string label;
 
+	Scene();
     Scene(std::string l);
+
+	void addPolygon(Polygon poly);
 
 
     std::tuple<float, float> relationship(vec2 p, Corner *c);
@@ -26,6 +29,7 @@ public:
 
 
     void calculateRelationships();
+	PolyRelationship calculateRelationships(Polygon polyMain);
 };
 
 #endif // SCENE_H
