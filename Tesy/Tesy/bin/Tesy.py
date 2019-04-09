@@ -159,6 +159,119 @@ class SwigPyIterator(_object):
 SwigPyIterator_swigregister = _Tesy.SwigPyIterator_swigregister
 SwigPyIterator_swigregister(SwigPyIterator)
 
+class VecFloat(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VecFloat, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, VecFloat, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        return _Tesy.VecFloat_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        return _Tesy.VecFloat___nonzero__(self)
+
+    def __bool__(self):
+        return _Tesy.VecFloat___bool__(self)
+
+    def __len__(self):
+        return _Tesy.VecFloat___len__(self)
+
+    def __getslice__(self, i, j):
+        return _Tesy.VecFloat___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        return _Tesy.VecFloat___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        return _Tesy.VecFloat___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        return _Tesy.VecFloat___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        return _Tesy.VecFloat___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        return _Tesy.VecFloat___setitem__(self, *args)
+
+    def pop(self):
+        return _Tesy.VecFloat_pop(self)
+
+    def append(self, x):
+        return _Tesy.VecFloat_append(self, x)
+
+    def empty(self):
+        return _Tesy.VecFloat_empty(self)
+
+    def size(self):
+        return _Tesy.VecFloat_size(self)
+
+    def swap(self, v):
+        return _Tesy.VecFloat_swap(self, v)
+
+    def begin(self):
+        return _Tesy.VecFloat_begin(self)
+
+    def end(self):
+        return _Tesy.VecFloat_end(self)
+
+    def rbegin(self):
+        return _Tesy.VecFloat_rbegin(self)
+
+    def rend(self):
+        return _Tesy.VecFloat_rend(self)
+
+    def clear(self):
+        return _Tesy.VecFloat_clear(self)
+
+    def get_allocator(self):
+        return _Tesy.VecFloat_get_allocator(self)
+
+    def pop_back(self):
+        return _Tesy.VecFloat_pop_back(self)
+
+    def erase(self, *args):
+        return _Tesy.VecFloat_erase(self, *args)
+
+    def __init__(self, *args):
+        this = _Tesy.new_VecFloat(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def push_back(self, x):
+        return _Tesy.VecFloat_push_back(self, x)
+
+    def front(self):
+        return _Tesy.VecFloat_front(self)
+
+    def back(self):
+        return _Tesy.VecFloat_back(self)
+
+    def assign(self, n, x):
+        return _Tesy.VecFloat_assign(self, n, x)
+
+    def resize(self, *args):
+        return _Tesy.VecFloat_resize(self, *args)
+
+    def insert(self, *args):
+        return _Tesy.VecFloat_insert(self, *args)
+
+    def reserve(self, n):
+        return _Tesy.VecFloat_reserve(self, n)
+
+    def capacity(self):
+        return _Tesy.VecFloat_capacity(self)
+    __swig_destroy__ = _Tesy.delete_VecFloat
+    __del__ = lambda self: None
+VecFloat_swigregister = _Tesy.VecFloat_swigregister
+VecFloat_swigregister(VecFloat)
+
 class Segment(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Segment, name, value)
