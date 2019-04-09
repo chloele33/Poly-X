@@ -159,121 +159,6 @@ class SwigPyIterator(_object):
 SwigPyIterator_swigregister = _Tesy.SwigPyIterator_swigregister
 SwigPyIterator_swigregister(SwigPyIterator)
 
-class map_float(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, map_float, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, map_float, name)
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        return _Tesy.map_float_iterator(self)
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        return _Tesy.map_float___nonzero__(self)
-
-    def __bool__(self):
-        return _Tesy.map_float___bool__(self)
-
-    def __len__(self):
-        return _Tesy.map_float___len__(self)
-    def __iter__(self):
-        return self.key_iterator()
-    def iterkeys(self):
-        return self.key_iterator()
-    def itervalues(self):
-        return self.value_iterator()
-    def iteritems(self):
-        return self.iterator()
-
-    def __getitem__(self, key):
-        return _Tesy.map_float___getitem__(self, key)
-
-    def __delitem__(self, key):
-        return _Tesy.map_float___delitem__(self, key)
-
-    def has_key(self, key):
-        return _Tesy.map_float_has_key(self, key)
-
-    def keys(self):
-        return _Tesy.map_float_keys(self)
-
-    def values(self):
-        return _Tesy.map_float_values(self)
-
-    def items(self):
-        return _Tesy.map_float_items(self)
-
-    def __contains__(self, key):
-        return _Tesy.map_float___contains__(self, key)
-
-    def key_iterator(self):
-        return _Tesy.map_float_key_iterator(self)
-
-    def value_iterator(self):
-        return _Tesy.map_float_value_iterator(self)
-
-    def __setitem__(self, *args):
-        return _Tesy.map_float___setitem__(self, *args)
-
-    def asdict(self):
-        return _Tesy.map_float_asdict(self)
-
-    def __init__(self, *args):
-        this = _Tesy.new_map_float(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def empty(self):
-        return _Tesy.map_float_empty(self)
-
-    def size(self):
-        return _Tesy.map_float_size(self)
-
-    def swap(self, v):
-        return _Tesy.map_float_swap(self, v)
-
-    def begin(self):
-        return _Tesy.map_float_begin(self)
-
-    def end(self):
-        return _Tesy.map_float_end(self)
-
-    def rbegin(self):
-        return _Tesy.map_float_rbegin(self)
-
-    def rend(self):
-        return _Tesy.map_float_rend(self)
-
-    def clear(self):
-        return _Tesy.map_float_clear(self)
-
-    def get_allocator(self):
-        return _Tesy.map_float_get_allocator(self)
-
-    def count(self, x):
-        return _Tesy.map_float_count(self, x)
-
-    def erase(self, *args):
-        return _Tesy.map_float_erase(self, *args)
-
-    def find(self, x):
-        return _Tesy.map_float_find(self, x)
-
-    def lower_bound(self, x):
-        return _Tesy.map_float_lower_bound(self, x)
-
-    def upper_bound(self, x):
-        return _Tesy.map_float_upper_bound(self, x)
-    __swig_destroy__ = _Tesy.delete_map_float
-    __del__ = lambda self: None
-map_float_swigregister = _Tesy.map_float_swigregister
-map_float_swigregister(map_float)
-
 class Segment(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Segment, name, value)
@@ -585,6 +470,32 @@ class Polygon(_object):
     __del__ = lambda self: None
 Polygon_swigregister = _Tesy.Polygon_swigregister
 Polygon_swigregister(Polygon)
+
+class ElemRelationship(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ElemRelationship, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ElemRelationship, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["label"] = _Tesy.ElemRelationship_label_set
+    __swig_getmethods__["label"] = _Tesy.ElemRelationship_label_get
+    if _newclass:
+        label = _swig_property(_Tesy.ElemRelationship_label_get, _Tesy.ElemRelationship_label_set)
+    __swig_setmethods__["rel"] = _Tesy.ElemRelationship_rel_set
+    __swig_getmethods__["rel"] = _Tesy.ElemRelationship_rel_get
+    if _newclass:
+        rel = _swig_property(_Tesy.ElemRelationship_rel_get, _Tesy.ElemRelationship_rel_set)
+
+    def __init__(self, *args):
+        this = _Tesy.new_ElemRelationship(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _Tesy.delete_ElemRelationship
+    __del__ = lambda self: None
+ElemRelationship_swigregister = _Tesy.ElemRelationship_swigregister
+ElemRelationship_swigregister(ElemRelationship)
 
 class Relationship(_object):
     __swig_setmethods__ = {}
