@@ -607,8 +607,8 @@ class Relationship(_object):
     if _newclass:
         polyRel = _swig_property(_Tesy.Relationship_polyRel_get, _Tesy.Relationship_polyRel_set)
 
-    def __init__(self, l, cor, seg, poly):
-        this = _Tesy.new_Relationship(l, cor, seg, poly)
+    def __init__(self, *args):
+        this = _Tesy.new_Relationship(*args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -705,8 +705,8 @@ class ElemRelationship(_object):
     if _newclass:
         rel = _swig_property(_Tesy.ElemRelationship_rel_get, _Tesy.ElemRelationship_rel_set)
 
-    def __init__(self, l, r):
-        this = _Tesy.new_ElemRelationship(l, r)
+    def __init__(self, *args):
+        this = _Tesy.new_ElemRelationship(*args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -747,8 +747,8 @@ class PolyRelationship(_object):
     if _newclass:
         center = _swig_property(_Tesy.PolyRelationship_center_get, _Tesy.PolyRelationship_center_set)
 
-    def __init__(self, l, ll, ul, ur, lr, c):
-        this = _Tesy.new_PolyRelationship(l, ll, ul, ur, lr, c)
+    def __init__(self, *args):
+        this = _Tesy.new_PolyRelationship(*args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
