@@ -584,32 +584,6 @@ class Polygon(_object):
 Polygon_swigregister = _Tesy.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
-class ElemRelationship(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ElemRelationship, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ElemRelationship, name)
-    __repr__ = _swig_repr
-    __swig_setmethods__["label"] = _Tesy.ElemRelationship_label_set
-    __swig_getmethods__["label"] = _Tesy.ElemRelationship_label_get
-    if _newclass:
-        label = _swig_property(_Tesy.ElemRelationship_label_get, _Tesy.ElemRelationship_label_set)
-    __swig_setmethods__["rel"] = _Tesy.ElemRelationship_rel_set
-    __swig_getmethods__["rel"] = _Tesy.ElemRelationship_rel_get
-    if _newclass:
-        rel = _swig_property(_Tesy.ElemRelationship_rel_get, _Tesy.ElemRelationship_rel_set)
-
-    def __init__(self, *args):
-        this = _Tesy.new_ElemRelationship(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _Tesy.delete_ElemRelationship
-    __del__ = lambda self: None
-ElemRelationship_swigregister = _Tesy.ElemRelationship_swigregister
-ElemRelationship_swigregister(ElemRelationship)
-
 class Relationship(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Relationship, name, value)
@@ -646,51 +620,6 @@ class Relationship(_object):
     __del__ = lambda self: None
 Relationship_swigregister = _Tesy.Relationship_swigregister
 Relationship_swigregister(Relationship)
-
-class PolyRelationship(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, PolyRelationship, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, PolyRelationship, name)
-    __repr__ = _swig_repr
-    __swig_setmethods__["label"] = _Tesy.PolyRelationship_label_set
-    __swig_getmethods__["label"] = _Tesy.PolyRelationship_label_get
-    if _newclass:
-        label = _swig_property(_Tesy.PolyRelationship_label_get, _Tesy.PolyRelationship_label_set)
-    __swig_setmethods__["lowLeft"] = _Tesy.PolyRelationship_lowLeft_set
-    __swig_getmethods__["lowLeft"] = _Tesy.PolyRelationship_lowLeft_get
-    if _newclass:
-        lowLeft = _swig_property(_Tesy.PolyRelationship_lowLeft_get, _Tesy.PolyRelationship_lowLeft_set)
-    __swig_setmethods__["upLeft"] = _Tesy.PolyRelationship_upLeft_set
-    __swig_getmethods__["upLeft"] = _Tesy.PolyRelationship_upLeft_get
-    if _newclass:
-        upLeft = _swig_property(_Tesy.PolyRelationship_upLeft_get, _Tesy.PolyRelationship_upLeft_set)
-    __swig_setmethods__["upRight"] = _Tesy.PolyRelationship_upRight_set
-    __swig_getmethods__["upRight"] = _Tesy.PolyRelationship_upRight_get
-    if _newclass:
-        upRight = _swig_property(_Tesy.PolyRelationship_upRight_get, _Tesy.PolyRelationship_upRight_set)
-    __swig_setmethods__["lowRight"] = _Tesy.PolyRelationship_lowRight_set
-    __swig_getmethods__["lowRight"] = _Tesy.PolyRelationship_lowRight_get
-    if _newclass:
-        lowRight = _swig_property(_Tesy.PolyRelationship_lowRight_get, _Tesy.PolyRelationship_lowRight_set)
-    __swig_setmethods__["center"] = _Tesy.PolyRelationship_center_set
-    __swig_getmethods__["center"] = _Tesy.PolyRelationship_center_get
-    if _newclass:
-        center = _swig_property(_Tesy.PolyRelationship_center_get, _Tesy.PolyRelationship_center_set)
-
-    def __init__(self, l, ll, ul, ur, lr, c):
-        this = _Tesy.new_PolyRelationship(l, ll, ul, ur, lr, c)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def to_String(self):
-        return _Tesy.PolyRelationship_to_String(self)
-    __swig_destroy__ = _Tesy.delete_PolyRelationship
-    __del__ = lambda self: None
-PolyRelationship_swigregister = _Tesy.PolyRelationship_swigregister
-PolyRelationship_swigregister(PolyRelationship)
 
 class Scene(_object):
     __swig_setmethods__ = {}
@@ -760,6 +689,74 @@ class SimilarityMeasures(_object):
     __del__ = lambda self: None
 SimilarityMeasures_swigregister = _Tesy.SimilarityMeasures_swigregister
 SimilarityMeasures_swigregister(SimilarityMeasures)
+
+class ElemRelationship(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ElemRelationship, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ElemRelationship, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["label"] = _Tesy.ElemRelationship_label_set
+    __swig_getmethods__["label"] = _Tesy.ElemRelationship_label_get
+    if _newclass:
+        label = _swig_property(_Tesy.ElemRelationship_label_get, _Tesy.ElemRelationship_label_set)
+    __swig_setmethods__["rel"] = _Tesy.ElemRelationship_rel_set
+    __swig_getmethods__["rel"] = _Tesy.ElemRelationship_rel_get
+    if _newclass:
+        rel = _swig_property(_Tesy.ElemRelationship_rel_get, _Tesy.ElemRelationship_rel_set)
+
+    def __init__(self, l, r):
+        this = _Tesy.new_ElemRelationship(l, r)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _Tesy.delete_ElemRelationship
+    __del__ = lambda self: None
+ElemRelationship_swigregister = _Tesy.ElemRelationship_swigregister
+ElemRelationship_swigregister(ElemRelationship)
+
+class PolyRelationship(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PolyRelationship, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PolyRelationship, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["label"] = _Tesy.PolyRelationship_label_set
+    __swig_getmethods__["label"] = _Tesy.PolyRelationship_label_get
+    if _newclass:
+        label = _swig_property(_Tesy.PolyRelationship_label_get, _Tesy.PolyRelationship_label_set)
+    __swig_setmethods__["lowLeft"] = _Tesy.PolyRelationship_lowLeft_set
+    __swig_getmethods__["lowLeft"] = _Tesy.PolyRelationship_lowLeft_get
+    if _newclass:
+        lowLeft = _swig_property(_Tesy.PolyRelationship_lowLeft_get, _Tesy.PolyRelationship_lowLeft_set)
+    __swig_setmethods__["upLeft"] = _Tesy.PolyRelationship_upLeft_set
+    __swig_getmethods__["upLeft"] = _Tesy.PolyRelationship_upLeft_get
+    if _newclass:
+        upLeft = _swig_property(_Tesy.PolyRelationship_upLeft_get, _Tesy.PolyRelationship_upLeft_set)
+    __swig_setmethods__["upRight"] = _Tesy.PolyRelationship_upRight_set
+    __swig_getmethods__["upRight"] = _Tesy.PolyRelationship_upRight_get
+    if _newclass:
+        upRight = _swig_property(_Tesy.PolyRelationship_upRight_get, _Tesy.PolyRelationship_upRight_set)
+    __swig_setmethods__["lowRight"] = _Tesy.PolyRelationship_lowRight_set
+    __swig_getmethods__["lowRight"] = _Tesy.PolyRelationship_lowRight_get
+    if _newclass:
+        lowRight = _swig_property(_Tesy.PolyRelationship_lowRight_get, _Tesy.PolyRelationship_lowRight_set)
+    __swig_setmethods__["center"] = _Tesy.PolyRelationship_center_set
+    __swig_getmethods__["center"] = _Tesy.PolyRelationship_center_get
+    if _newclass:
+        center = _swig_property(_Tesy.PolyRelationship_center_get, _Tesy.PolyRelationship_center_set)
+
+    def __init__(self, l, ll, ul, ur, lr, c):
+        this = _Tesy.new_PolyRelationship(l, ll, ul, ur, lr, c)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _Tesy.delete_PolyRelationship
+    __del__ = lambda self: None
+PolyRelationship_swigregister = _Tesy.PolyRelationship_swigregister
+PolyRelationship_swigregister(PolyRelationship)
 
 # This file is compatible with both classic and new-style classes.
 
