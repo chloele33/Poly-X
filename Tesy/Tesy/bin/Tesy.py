@@ -683,8 +683,8 @@ class SimilarityMeasures(_object):
     def pointSimilarity(self, r1, r2):
         return _Tesy.SimilarityMeasures_pointSimilarity(self, r1, r2)
 
-    def similarity(self, *args):
-        return _Tesy.SimilarityMeasures_similarity(self, *args)
+    def similarity(self, v1, v2):
+        return _Tesy.SimilarityMeasures_similarity(self, v1, v2)
     __swig_destroy__ = _Tesy.delete_SimilarityMeasures
     __del__ = lambda self: None
 SimilarityMeasures_swigregister = _Tesy.SimilarityMeasures_swigregister
