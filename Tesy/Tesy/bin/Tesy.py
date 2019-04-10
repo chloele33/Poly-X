@@ -614,6 +614,12 @@ class Relationship(_object):
         except __builtin__.Exception:
             self.this = this
 
+    def getCornerSize(self):
+        return _Tesy.Relationship_getCornerSize(self)
+
+    def cornerElemAt(self, i):
+        return _Tesy.Relationship_cornerElemAt(self, i)
+
     def to_String(self):
         return _Tesy.Relationship_to_String(self)
     __swig_destroy__ = _Tesy.delete_Relationship
