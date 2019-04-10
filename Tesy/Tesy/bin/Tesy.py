@@ -607,8 +607,8 @@ class Relationship(_object):
     if _newclass:
         polyRel = _swig_property(_Tesy.Relationship_polyRel_get, _Tesy.Relationship_polyRel_set)
 
-    def __init__(self, l):
-        this = _Tesy.new_Relationship(l)
+    def __init__(self, l, cor, seg, poly):
+        this = _Tesy.new_Relationship(l, cor, seg, poly)
         try:
             self.this.append(this)
         except __builtin__.Exception:
