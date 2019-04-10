@@ -73,7 +73,28 @@ global proc aboutWindow( ) {
 global proc labelWindow( ) {
 
     window -title "Label Object" -widthHeight 200 200 labelWindow;
-    	frameLayout -labelVisible false -marginWidth 200;
+    	frameLayout -labelVisible false -marginWidth 20;
+    		columnLayout;
+    			textField -w 200 -pht "Label selected object" objectLabel;
+    			optionMenu -label "Group" groupMenu;
+    				int $v1 = `intField -q -v numPlacements`;
+					for ($i = 1; $i <= $v1; $i++) {
+						$label = "Group" + $i;
+            			menuItem -label $label;
+            		}
+    		setParent ..;
+    		rowLayout  -numberOfColumns 2;
+	    		button -label "Ok" -w 100 -command "okLabel()";
+	    		button -label "Cancel" -w 100 -command "cancelLabel()";
+	    	setParent ..;
+	    setParent ..;
+    showWindow labelWindow;
+};
+
+global proc labelWindow2( ) {
+
+    window -title "Label Object" -widthHeight 200 200 labelWindow2;
+    	frameLayout -labelVisible false -marginWidth 20;
     		columnLayout;
     			textField -w 200 -pht "Label selected object" objectLabel;
     			optionMenu -label "Group" groupMenu;
@@ -125,8 +146,33 @@ global proc mainWindow( ) {
 	    		button -label "Label Object" -w 100 -command "labelWindow()";
 	    		
 	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
-	    		frameLayout -labelVisible false -bv true - height 300 -width 300;
+	    		frameLayout -labelVisible false -bv true - height 250 -width 300;
 	    			scrollLayout scrollList;
+	    				//int $v1 = `intField -q -v numPlacements`;
+	    				//for ($i = 1; $i <= 5; $i++) {
+	    				//	$label = "Group" + $i;
+	    				//	$name = "layoutGroup" + $i;
+	    				//	frameLayout -label $label -collapsable 1 $name;
+	    				//	setParent ..;
+	    				//}
+	    				//frameLayout -label "Group 1" -collapsable 1;
+	    				//	text -label "Mirror";
+	    				//	text -label "Sink";
+	    				//setParent ..;
+	    				//frameLayout -label "Group 2" -collapsable 1;
+	    				//	text -label "Mirror";
+	    				//	text -label "Sink";
+	    				//setParent ..;
+	    			setParent ..;
+	    		setParent ..;
+	    	setParent ..;
+
+	    	rowLayout  -numberOfColumns 2;
+	    		button -label "Label Object" -w 100 -command "labelWindow2()";
+	    		
+	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
+	    		frameLayout -labelVisible false -bv true - height 100 -width 300;
+	    			scrollLayout scrollList2;
 	    				//int $v1 = `intField -q -v numPlacements`;
 	    				//for ($i = 1; $i <= 5; $i++) {
 	    				//	$label = "Group" + $i;
