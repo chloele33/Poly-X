@@ -361,6 +361,12 @@ class vec2(_object):
 
     def Normalize(self):
         return _Tesy.vec2_Normalize(self)
+
+    def getX(self):
+        return _Tesy.vec2_getX(self)
+
+    def getY(self):
+        return _Tesy.vec2_getY(self)
     __swig_destroy__ = _Tesy.delete_vec2
     __del__ = lambda self: None
 vec2_swigregister = _Tesy.vec2_swigregister
