@@ -10,8 +10,6 @@ import maya.cmds as cmds
 import maya.mel
 import os
 
-import Tesy
-
 #import test as ui
 
 # The name of the command.
