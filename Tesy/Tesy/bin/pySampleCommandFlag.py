@@ -108,6 +108,7 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
         	propLabel = argData.flagArgumentString(kShortFlagPropLabel, 0)
         	for i in range(0, len(exampleObjects) - 1):
         		exampleObjects[i].desiredLabel = propLabel
+        	maya.mel.eval("print \"It Works!\"")
             
             
         

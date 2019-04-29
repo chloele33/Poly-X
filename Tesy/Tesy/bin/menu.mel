@@ -108,6 +108,13 @@ global proc getText( ) {
 };
 
 
+global proc setPropLabel() {
+	$propl = `textField -q -text propagateLabel`;
+	polyX -p $propl;
+
+};
+
+
 global proc mainWindow( ) {
     
     window -title "Poly-X";
@@ -127,7 +134,7 @@ global proc mainWindow( ) {
     			//intFieldGrp -label "Number of Example Placements: " -columnWidth 1 100 numPlacements;
     			intField -width 200 -cc "updateNumGroups()" numPlacements;
     		setParent ..;
-    		
+
     		
 	    	rowLayout  -numberOfColumns 2;
 	    		button -label "Label Object" -w 100 -command "labelWindow()";
@@ -153,6 +160,9 @@ global proc mainWindow( ) {
 	    			setParent ..;
 	    		setParent ..;
 	    	setParent ..;
+
+	    	columnLayout;
+	    		textField -w 200 -pht "Label of object to Propagate" -enterCommand "setPropLabel()" propagateLabel;
 
 	    	columnLayout;
 	    		button -label "Learn Selected Shapes Placement" -w 200 -command "learnPlacement()";
