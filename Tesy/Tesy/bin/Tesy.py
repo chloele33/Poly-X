@@ -672,6 +672,9 @@ class Scene(_object):
     def getPolyAt(self, i):
         return _Tesy.Scene_getPolyAt(self, i)
 
+    def processVec(self, vec):
+        return _Tesy.Scene_processVec(self, vec)
+
     def getPolyLabel(self, i):
         return _Tesy.Scene_getPolyLabel(self, i)
 
