@@ -672,6 +672,9 @@ class Scene(_object):
     def getPolyAt(self, i):
         return _Tesy.Scene_getPolyAt(self, i)
 
+    def getPolyLabel(self, i):
+        return _Tesy.Scene_getPolyLabel(self, i)
+
     def relationship(self, *args):
         return _Tesy.Scene_relationship(self, *args)
 
