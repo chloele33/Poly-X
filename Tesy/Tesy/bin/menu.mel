@@ -128,6 +128,7 @@ global proc mainWindow( ) {
     			intField -width 200 -cc "updateNumGroups()" numPlacements;
     		setParent ..;
     		
+    		
 	    	rowLayout  -numberOfColumns 2;
 	    		button -label "Label Object" -w 100 -command "labelWindow()";
 	    		
