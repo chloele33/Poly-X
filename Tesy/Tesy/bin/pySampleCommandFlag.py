@@ -31,6 +31,12 @@ kShortFlagYMax = '-ymx'
 kLongFlagYMax = '-yMax'
 
 
+kShortFlagPropLabel = '-p'
+kLongFlagPropLabel = '-propLabel'
+
+#Prop_label = 'mirror'
+
+
 exampleObjects = []
 
 
@@ -97,6 +103,11 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
             	maxVec = sim.vec2(xmax, ymax)
             	poly = sim.Polygon(sim.vec2(xmin, ymin), sim.vec2(xmax, ymax), str(label))
             	exampleObjects[groupNum - 1].addPolygon(poly)
+
+        if argData.isFlagSet(kShortFlagPropLabel):
+        	propLabel = argData.flagArgumentString(kShortFlagPropLabel, 0)
+        	for i in range(0, len(exampleObjects) - 1):
+        		exampleObjects[i].desiredLabel = propLabel
             
             
         
@@ -120,6 +131,8 @@ def syntaxCreator():
     syntax.addFlag( kShortFlagXMax, kLongFlagXMax, OpenMaya.MSyntax.kDouble )
     syntax.addFlag( kShortFlagYMin, kLongFlagYMin, OpenMaya.MSyntax.kDouble )
     syntax.addFlag( kShortFlagYMax, kLongFlagYMax, OpenMaya.MSyntax.kDouble )
+
+    syntax.addFlag( kShortFlagPropLabel, kLongFlagPropLabel, OpenMaya.MSyntax.kString )
     
     # ... Add more flags here ...
         
