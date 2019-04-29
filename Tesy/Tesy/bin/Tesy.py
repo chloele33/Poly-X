@@ -651,6 +651,10 @@ class Scene(_object):
     __swig_getmethods__["label"] = _Tesy.Scene_label_get
     if _newclass:
         label = _swig_property(_Tesy.Scene_label_get, _Tesy.Scene_label_set)
+    __swig_setmethods__["desiredLabel"] = _Tesy.Scene_desiredLabel_set
+    __swig_getmethods__["desiredLabel"] = _Tesy.Scene_desiredLabel_get
+    if _newclass:
+        desiredLabel = _swig_property(_Tesy.Scene_desiredLabel_get, _Tesy.Scene_desiredLabel_set)
 
     def __init__(self, *args):
         this = _Tesy.new_Scene(*args)
@@ -661,6 +665,12 @@ class Scene(_object):
 
     def addPolygon(self, poly):
         return _Tesy.Scene_addPolygon(self, poly)
+
+    def getPolySize(self):
+        return _Tesy.Scene_getPolySize(self)
+
+    def getPolyAt(self, i):
+        return _Tesy.Scene_getPolyAt(self, i)
 
     def relationship(self, *args):
         return _Tesy.Scene_relationship(self, *args)

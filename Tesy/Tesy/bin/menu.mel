@@ -27,16 +27,23 @@ global proc okLabel( ) {
 
 	$shapeName = `ls -sl -o`;
 
-	//polyEvaluate -boundingBox pPlane1;
+	//polyEvaluate -boundingBox $shapeName[$i];
+	//$bound = `polyEvaluate -boundingBox $shapeName[0]`;
+	
 
 	if (size($shapeName)) {
 		//python("addExampleObject(\"Group2\", \"sink\", \"square3\")");
+
+		float $Min[] = `getAttr ($shapeName[0] + ".boundingBoxMin")`;
+		float $Max[] = `getAttr ($shapeName[0] + ".boundingBoxMax")`;
+		polyX -g $groupName -l $label -xm $Min[0] -xmx $Max[0] -ym $Min[1] -ymx $Max[1];
 
 		if (!`textScrollList -exists $name`) {
 			textScrollList -append $label -parent $parent $name;
 			//for ($i = 0; $i < size($shapeName); $i++) {
 				//python("addExampleObject(" + $group + ", " +  $label + ", " + $shapeName[$i] + ")");
 			//}
+
 		}
 		else {
 			textScrollList -e -append $label $name;
@@ -73,28 +80,7 @@ global proc aboutWindow( ) {
 global proc labelWindow( ) {
 
     window -title "Label Object" -widthHeight 200 200 labelWindow;
-    	frameLayout -labelVisible false -marginWidth 20;
-    		columnLayout;
-    			textField -w 200 -pht "Label selected object" objectLabel;
-    			optionMenu -label "Group" groupMenu;
-    				int $v1 = `intField -q -v numPlacements`;
-					for ($i = 1; $i <= $v1; $i++) {
-						$label = "Group" + $i;
-            			menuItem -label $label;
-            		}
-    		setParent ..;
-    		rowLayout  -numberOfColumns 2;
-	    		button -label "Ok" -w 100 -command "okLabel()";
-	    		button -label "Cancel" -w 100 -command "cancelLabel()";
-	    	setParent ..;
-	    setParent ..;
-    showWindow labelWindow;
-};
-
-global proc labelWindow2( ) {
-
-    window -title "Label Object" -widthHeight 200 200 labelWindow2;
-    	frameLayout -labelVisible false -marginWidth 20;
+    	frameLayout -labelVisible false;
     		columnLayout;
     			textField -w 200 -pht "Label selected object" objectLabel;
     			optionMenu -label "Group" groupMenu;
@@ -146,33 +132,8 @@ global proc mainWindow( ) {
 	    		button -label "Label Object" -w 100 -command "labelWindow()";
 	    		
 	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
-	    		frameLayout -labelVisible false -bv true - height 250 -width 300;
+	    		frameLayout -labelVisible false -bv true - height 300 -width 300;
 	    			scrollLayout scrollList;
-	    				//int $v1 = `intField -q -v numPlacements`;
-	    				//for ($i = 1; $i <= 5; $i++) {
-	    				//	$label = "Group" + $i;
-	    				//	$name = "layoutGroup" + $i;
-	    				//	frameLayout -label $label -collapsable 1 $name;
-	    				//	setParent ..;
-	    				//}
-	    				//frameLayout -label "Group 1" -collapsable 1;
-	    				//	text -label "Mirror";
-	    				//	text -label "Sink";
-	    				//setParent ..;
-	    				//frameLayout -label "Group 2" -collapsable 1;
-	    				//	text -label "Mirror";
-	    				//	text -label "Sink";
-	    				//setParent ..;
-	    			setParent ..;
-	    		setParent ..;
-	    	setParent ..;
-
-	    	rowLayout  -numberOfColumns 2;
-	    		button -label "Label Object" -w 100 -command "labelWindow2()";
-	    		
-	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
-	    		frameLayout -labelVisible false -bv true - height 100 -width 300;
-	    			scrollLayout scrollList2;
 	    				//int $v1 = `intField -q -v numPlacements`;
 	    				//for ($i = 1; $i <= 5; $i++) {
 	    				//	$label = "Group" + $i;
@@ -214,3 +175,10 @@ $menu = `menu -l "Poly-X" -p MayaWindow`;
 menuItem -l "Poly-X Window" -c "mainWindow";
 menuItem -l "Help" -c "helpWindow";
 menuItem -l "About" -c "aboutWindow";
+
+
+
+//polyCube -width 4 -depth 4;
+//move -x 27 -y 0 -z -3;
+
+//polyEvaluate -boundingBox pPlane1;
