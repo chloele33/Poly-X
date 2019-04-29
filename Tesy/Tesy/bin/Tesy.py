@@ -663,8 +663,8 @@ class Scene(_object):
         except __builtin__.Exception:
             self.this = this
 
-    def addPolygon(self, poly):
-        return _Tesy.Scene_addPolygon(self, poly)
+    def addPolygon(self, xmin, ymin, xmax, ymax, label, polys):
+        return _Tesy.Scene_addPolygon(self, xmin, ymin, xmax, ymax, label, polys)
 
     def getPolySize(self):
         return _Tesy.Scene_getPolySize(self)
