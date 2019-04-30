@@ -655,6 +655,8 @@ class Scene(_object):
     __swig_getmethods__["desiredLabel"] = _Tesy.Scene_desiredLabel_get
     if _newclass:
         desiredLabel = _swig_property(_Tesy.Scene_desiredLabel_get, _Tesy.Scene_desiredLabel_set)
+    __swig_destroy__ = _Tesy.delete_Scene
+    __del__ = lambda self: None
 
     def __init__(self, *args):
         this = _Tesy.new_Scene(*args)
@@ -681,13 +683,14 @@ class Scene(_object):
     def relationship(self, *args):
         return _Tesy.Scene_relationship(self, *args)
 
+    def getRel(self, polyMain):
+        return _Tesy.Scene_getRel(self, polyMain)
+
     def calculateRelationshipsVoid(self):
         return _Tesy.Scene_calculateRelationshipsVoid(self)
 
     def calculateRelationships(self, polyMain):
         return _Tesy.Scene_calculateRelationships(self, polyMain)
-    __swig_destroy__ = _Tesy.delete_Scene
-    __del__ = lambda self: None
 Scene_swigregister = _Tesy.Scene_swigregister
 Scene_swigregister(Scene)
 
