@@ -18,6 +18,27 @@ global proc updateNumGroups( ) {
 };
 
 
+
+global proc updateNumGroups2( ) {
+	int $v1 = `intField -q -v numPlacements2`;
+	for ($i = 1; $i <= $v1; $i++) {
+	    $label = "Group" + $i;
+	    $name = "layout2Group" + $i;
+	    if (!`frameLayout -exists $name`) {
+	    	frameLayout -label $label -collapsable 1 -parent scrollList2 -width 290 $name;
+	    	setParent ..;
+	    }
+	}
+	$v1++;
+	$name = "layout2Group" + $v1;
+	while (`frameLayout -exists $name`) {
+		deleteUI $name;
+		$v1++;
+		$name = "layout2Group" + $v1;
+	}
+};
+
+
 global proc okLabel( ) {
 	
 	$groupName = `optionMenu -q -v groupMenu`;
@@ -59,8 +80,43 @@ global proc okLabel( ) {
 };
 
 
+
+
+global proc okLabel2( ) {
+	
+	$groupName = `optionMenu -q -v groupMenu2`;
+	$name = "scroll2" + $groupName;
+	$label = `textField -q -text objectLabel2`;
+	$parent = "layout2" + $groupName;
+
+	$shapeName = `ls -sl -o`;
+
+	if (size($shapeName)) {
+		float $Min[] = `getAttr ($shapeName[0] + ".boundingBoxMin")`;
+		float $Max[] = `getAttr ($shapeName[0] + ".boundingBoxMax")`;
+		polyX -gp $groupName -l $label -xm $Min[0] -xmx $Max[0] -ym $Min[1] -ymx $Max[1];
+
+		if (!`textScrollList -exists $name`) {
+			textScrollList -append $label -parent $parent $name;
+		}
+		else {
+			textScrollList -e -append $label $name;
+		}
+		deleteUI labelWindow2;
+	}
+	else {
+
+	}
+
+};
+
+
 global proc cancelLabel( ) {
 	deleteUI labelWindow;
+};
+
+global proc cancelLabel2( ) {
+	deleteUI labelWindow2;
 };
 
 
@@ -98,6 +154,33 @@ global proc labelWindow( ) {
     showWindow labelWindow;
 };
 
+
+global proc labelWindow2( ) {
+
+    window -title "Label Object" -widthHeight 200 200 labelWindow2;
+    	frameLayout -labelVisible false;
+    		columnLayout;
+    			textField -w 200 -pht "Label selected object" objectLabel2;
+    			optionMenu -label "Group" groupMenu2;
+    				int $v1 = `intField -q -v numPlacements2`;
+					for ($i = 1; $i <= $v1; $i++) {
+						$label = "Group" + $i;
+            			menuItem -label $label;
+            		}
+    		setParent ..;
+    		rowLayout  -numberOfColumns 2;
+	    		button -label "Ok" -w 100 -command "okLabel2()";
+	    		button -label "Cancel" -w 100 -command "cancelLabel2()";
+	    	setParent ..;
+	    setParent ..;
+    showWindow labelWindow2;
+};
+
+
+
+
+
+
 global proc loadJsonFile( ) {
 
 };
@@ -109,8 +192,8 @@ global proc getText( ) {
 
 
 global proc setPropLabel() {
-	$propl = `textField -q -text propagateLabel`;
-	polyX -p $propl;
+	$prop = `textField -q -text propagateLabel`;
+	polyX -p $prop;
 
 };
 
@@ -130,7 +213,7 @@ global proc mainWindow( ) {
 
     	frameLayout -labelVisible false -marginWidth 200;
     		rowLayout  -numberOfColumns 2;
-    			text -label "Number of examples: ";
+    			text -label "Number of example scenes: ";
     			//intFieldGrp -label "Number of Example Placements: " -columnWidth 1 100 numPlacements;
     			intField -width 200 -cc "updateNumGroups()" numPlacements;
     		setParent ..;
@@ -140,29 +223,38 @@ global proc mainWindow( ) {
 	    		button -label "Label Object" -w 100 -command "labelWindow()";
 	    		
 	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
-	    		frameLayout -labelVisible false -bv true - height 300 -width 300;
+	    		frameLayout -labelVisible false -bv true - height 150 -width 300;
 	    			scrollLayout scrollList;
-	    				//int $v1 = `intField -q -v numPlacements`;
-	    				//for ($i = 1; $i <= 5; $i++) {
-	    				//	$label = "Group" + $i;
-	    				//	$name = "layoutGroup" + $i;
-	    				//	frameLayout -label $label -collapsable 1 $name;
-	    				//	setParent ..;
-	    				//}
-	    				//frameLayout -label "Group 1" -collapsable 1;
-	    				//	text -label "Mirror";
-	    				//	text -label "Sink";
-	    				//setParent ..;
-	    				//frameLayout -label "Group 2" -collapsable 1;
-	    				//	text -label "Mirror";
-	    				//	text -label "Sink";
-	    				//setParent ..;
 	    			setParent ..;
 	    		setParent ..;
 	    	setParent ..;
 
+
+
+
+
+
+	    	rowLayout  -numberOfColumns 2;
+    			text -label "Number of scenes to propagate: ";
+    			intField -width 200 -cc "updateNumGroups2()" numPlacements2;
+    		setParent ..;
+
+    		rowLayout  -numberOfColumns 2;
+	    		button -label "Label Object" -w 100 -command "labelWindow2()";
+
+	    		frameLayout -labelVisible false -bv true - height 150 -width 300;
+	    			scrollLayout scrollList2;
+	    			setParent ..;
+	    		setParent ..;
+	    	setParent ..;
+
+
+
+
+
 	    	columnLayout;
-	    		textField -w 200 -pht "Label of object to Propagate" -enterCommand "setPropLabel()" propagateLabel;
+	    		textField -w 200 -pht "Label of object to Propagate" -changeCommand "setPropLabel()" propagateLabel;
+	    	setParent ..;
 
 	    	columnLayout;
 	    		button -label "Learn Selected Shapes Placement" -w 200 -command "learnPlacement()";
@@ -190,6 +282,10 @@ menuItem -l "About" -c "aboutWindow";
 
 
 //polyCube -width 4 -depth 4;
+// duplicate -un
 //move -x 27 -y 0 -z -3;
+//scale -x 1 -z 2;
 
 //polyEvaluate -boundingBox pPlane1;
+
+//objectType polySphere1;

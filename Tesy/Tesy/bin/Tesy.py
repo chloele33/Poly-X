@@ -781,6 +781,9 @@ class PolyRelationship(_object):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
+
+    def getCornerValue(self):
+        return _Tesy.PolyRelationship_getCornerValue(self)
     __swig_destroy__ = _Tesy.delete_PolyRelationship
     __del__ = lambda self: None
 PolyRelationship_swigregister = _Tesy.PolyRelationship_swigregister
