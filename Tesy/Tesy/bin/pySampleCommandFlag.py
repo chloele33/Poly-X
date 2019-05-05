@@ -7,7 +7,7 @@ import maya.api.OpenMaya as OpenMaya
 import maya.mel
 
 import Tesy as sim
-
+import numpy as np
 
 
 kPluginCmdName = 'polyX'
@@ -40,7 +40,7 @@ kLongFlagPropLabel = '-propLabel'
 kShortFlagResult = '-r'
 kLongFlagResult = '-result'
 
-#Prop_label = 'mirror'
+propLabel = 'none'
 
 
 exampleScenes = []
@@ -96,6 +96,7 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
             xmax = argData.flagArgumentFloat(kShortFlagXMax, 0)
             ymin = argData.flagArgumentFloat(kShortFlagYMin, 0)
             ymax = argData.flagArgumentFloat(kShortFlagYMax, 0)
+            print("xminmaxyminmax", xmin, xmax, ymin, ymax)
             maya.mel.eval("print \"Group: " + group + "\"")
             maya.mel.eval("print \"Label: " + label + "\"")
             maya.mel.eval("print \"Xmin: " + str(xmin) + "\"")
@@ -126,6 +127,7 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
             xmax = argData.flagArgumentFloat(kShortFlagXMax, 0)
             ymin = argData.flagArgumentFloat(kShortFlagYMin, 0)
             ymax = argData.flagArgumentFloat(kShortFlagYMax, 0)
+            print("ymin, ymax", xmin, xmax, ymin, ymax)
             maya.mel.eval("print \"Group: " + group + "\"")
             maya.mel.eval("print \"Label: " + label + "\"")
             maya.mel.eval("print \"Xmin: " + str(xmin) + "\"")
@@ -152,14 +154,148 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
         	maya.mel.eval("print \"It Works!\"")
 
         if argData.isFlagSet(kShortFlagResult):
-        	results = [2.0, 1.0, 4.5, 6.2]
-        	centerX = (results[0] + results[2]) / 2
-        	centerY = (results[1] + results[3]) / 2
-        	scaleX = results[2] - centerX
-        	scaleY = results[3] - centerY
-        	maya.mel.eval("duplicate -un;")
-        	maya.mel.eval("move -x " + str(centerX) + " -y " + str(centerY) +";")
-        	maya.mel.eval("scale -x " + str(scaleX) + " -y " + str(scaleY) + ";")
+            finalResults = []
+            for sIdx in range(len(propagateVecs)):
+                vecPolyOut = propagateVecs[sIdx]
+                output = propagateScenes[sIdx]
+                allPossibleCandidates = []
+
+                desiredLabel = exampleScenes[sIdx].desiredLabel
+                # desiredpolygon in each scene
+                desiredPolygons = []
+                # GET CANDIDATE
+                # For each example scene
+                for vecPoly in exampleVecs:
+                    print(vecPoly.size())
+                    # iterate to find the target desired object
+                    currPoly = None
+                    for i in range(vecPoly.size()):
+                        label = vecPoly[i].label
+                        print(label)
+                        if label == desiredLabel:
+                            currPoly = vecPoly[i]
+                            desiredPolygons.append(currPoly)
+                    # print(currPoly.label)
+                    # iterate through all other polygons to come up with relations
+                    currminx = currPoly.low_bound.getX()
+                    currmaxY = currPoly.low_bound.getY()
+                    currmaxX = currPoly.upper_bound.getX()
+                    currminy = currPoly.upper_bound.getY()
+                    lowerBounds = []
+                    upperBounds = []
+                    for i in range(vecPoly.size()):
+                        p = vecPoly[i]
+                        label = p.label
+                        if label != desiredLabel:
+                            minx = p.low_bound.getX()
+                            maxY = p.low_bound.getY()
+                            maxX = p.upper_bound.getX()
+                            miny = p.upper_bound.getY()
+                            # print(minx, miny, maxX, maxY)
+                            # print(currminx, currminy, currmaxX, currmaxY)
+                            newMinX = minx - currminx
+                            newMinY = miny - currminy
+                            newMaxX = maxX - currmaxX
+                            newMaxY = maxY - currmaxY
+                            for j in range(vecPolyOut.size()):
+                                if vecPolyOut[j].label == label:
+                                    outputCurrPoly = vecPolyOut[j]
+                                    outminx = outputCurrPoly.low_bound.getX()
+                                    outmaxY = outputCurrPoly.low_bound.getY()
+                                    outmaxX = outputCurrPoly.upper_bound.getX()
+                                    outminy = outputCurrPoly.upper_bound.getY()
+                                    lowerBounds.append([outminx - newMinX, outminy - newMinY])
+                                    upperBounds.append([outmaxX - newMaxX, outmaxY - newMaxY])
+                    print(lowerBounds)
+                    print(upperBounds)
+                    # Create candiate placements by taking combination of lower and upper
+                    for lb in lowerBounds:
+                        for ub in upperBounds:
+                            allPossibleCandidates.append([lb[0], lb[1], ub[0], ub[1]])
+                #
+                # print(allPossibleCandidates)
+                # print(len(allPossibleCandidates))
+                # print(len(desiredPolygons))
+
+                # get Polygons from candidate placements
+                # get feature set x corresponding to each new candidate placement
+                xList = []
+                candidatePolygons = []
+                for c in allPossibleCandidates:
+                    print(c)
+                    potentialPoly = sim.Polygon(sim.vec2(c[0], c[1]), sim.vec2(c[2], c[3]), desiredLabel)
+                    candidatePolygons.append(potentialPoly)
+                    xList.append(output.calculateRelationships(potentialPoly))
+
+                print("here", xList)
+
+                # get Phi values for each example
+                phiList = []
+                for i in range(len(exampleScenes)):
+                    phiList.append(exampleScenes[i].calculateRelationships(desiredPolygons[i]))
+
+                print("phi", phiList)
+
+                # Get Similarity Measures
+                similarityMeasures = sim.SimilarityMeasures()
+                xphiList = []
+                for x in xList:
+                    x1 = []
+                    for phi in phiList:
+                        ss = similarityMeasures.shapeSimilarity(x, phi)
+                        x1.append(ss)
+                    xphiList.append(x1)
+
+                print("xphiList", xphiList)
+
+                # get Gram Matrix
+                GramMatRows = []
+                for i in phiList:
+                    currRow = [];
+                    for j in phiList:
+                        currRow.append(similarityMeasures.shapeSimilarity(i, j))
+                    GramMatRows.append(np.asarray(currRow))
+                GramMat = np.asarray(GramMatRows)
+
+                print("GRAM", GramMat)
+
+                beta = 1.0
+                I = np.eye(len(exampleScenes))
+                covariance = GramMat + I / beta
+                precision = np.linalg.inv(covariance)
+
+                yx = np.matmul(xphiList, precision)
+                print(yx)
+
+                allRates = []
+                for val in yx:
+                    sum = 0
+                    for v in val:
+                        sum = sum + v
+                    allRates.append(sum)
+
+                maxVal = -np.inf
+                maxValIndex = 0
+                for i in range(len(allRates)):
+                    if (allRates[i] > maxVal):
+                        maxVal = allRates[i]
+                        maxValIndex = i
+
+                print(maxVal, maxValIndex)
+                print(allRates)
+                finalResults.append(allPossibleCandidates[maxValIndex])
+
+            print(finalResults)
+            for result in finalResults:
+                results = result
+                centerX = (results[0] + results[2]) / 2
+                centerY = (results[1] + results[3]) / 2
+                scaleX = results[2] - results[0]
+                scaleY = abs(results[1] - results[3])
+                maya.mel.eval("duplicate -un;")
+                maya.mel.eval("scale -x " + str(scaleX) + " -z " + str(scaleY) + ";")
+                maya.mel.eval("move -x " + str(centerX) + " -z " + str(centerY) +";")
+
             
             
         

@@ -57,7 +57,7 @@ global proc okLabel( ) {
 
 		float $Min[] = `getAttr ($shapeName[0] + ".boundingBoxMin")`;
 		float $Max[] = `getAttr ($shapeName[0] + ".boundingBoxMax")`;
-		polyX -g $groupName -l $label -xm $Min[0] -xmx $Max[0] -ym $Min[1] -ymx $Max[1];
+		polyX -g $groupName -l $label -xm $Min[0] -xmx $Max[0] -ym $Max[2] -ymx $Min[2];
 
 		if (!`textScrollList -exists $name`) {
 			textScrollList -append $label -parent $parent $name;
@@ -94,7 +94,7 @@ global proc okLabel2( ) {
 	if (size($shapeName)) {
 		float $Min[] = `getAttr ($shapeName[0] + ".boundingBoxMin")`;
 		float $Max[] = `getAttr ($shapeName[0] + ".boundingBoxMax")`;
-		polyX -gp $groupName -l $label -xm $Min[0] -xmx $Max[0] -ym $Min[1] -ymx $Max[1];
+		polyX -gp $groupName -l $label -xm $Min[0] -xmx $Max[0] -ym $Max[2] -ymx $Min[2];
 
 		if (!`textScrollList -exists $name`) {
 			textScrollList -append $label -parent $parent $name;
@@ -198,6 +198,11 @@ global proc setPropLabel() {
 };
 
 
+global proc propagate() {
+    polyX -r 1;
+};
+
+
 global proc mainWindow( ) {
     
     window -title "Poly-X";
@@ -256,9 +261,9 @@ global proc mainWindow( ) {
 	    		textField -w 200 -pht "Label of object to Propagate" -changeCommand "setPropLabel()" propagateLabel;
 	    	setParent ..;
 
-	    	columnLayout;
-	    		button -label "Learn Selected Shapes Placement" -w 200 -command "learnPlacement()";
-	    	setParent ..;
+	    	//columnLayout;
+	    	//	button -label "Learn Selected Shapes Placement" -w 200 -command "learnPlacement()";
+	    	//setParent ..;
 	    setParent ..;
 
 	    frameLayout -labelVisible false;
