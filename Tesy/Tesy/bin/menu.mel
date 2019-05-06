@@ -202,6 +202,17 @@ global proc propagate() {
     polyX -r 1;
 };
 
+// Added
+global proc saveProp() {
+    string $singleFilter = "JSON File (*.json)";
+    string $result[] = `fileDialog2 -fileFilter $singleFilter -dialogStyle 0`;
+    if (size($result)) {
+        print ($result[0]);
+        polyX -j $result[0];
+    }
+};
+
+
 
 global proc mainWindow( ) {
     

@@ -9,6 +9,9 @@ import maya.mel
 import Tesy as sim
 import numpy as np
 
+import os
+import json
+
 
 kPluginCmdName = 'polyX'
 
@@ -40,6 +43,9 @@ kLongFlagPropLabel = '-propLabel'
 kShortFlagResult = '-r'
 kLongFlagResult = '-result'
 
+kShortFlagJson = '-j'
+kLongFlagJson = '-jsonFile'
+
 propLabel = 'none'
 
 
@@ -48,6 +54,10 @@ exampleVecs = []
 
 propagateScenes = []
 propagateVecs = []
+
+
+data = {}
+data['group'] = []
 
 
 
@@ -112,9 +122,19 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
             			vec = sim.VecPoly()
             			exampleScenes.append(scene)
             			exampleVecs.append(vec)
+                        groupData = {}
+                        groupData["Group" + str(x+1)] = []
+                        data['group'].append(groupData)
             	#scene = sim.Scene(group)
             	#poly = sim.Polygon(sim.vec2(xmin, ymin), sim.vec2(xmax, ymax), str(label))
-            	exampleScenes[groupNum - 1].addPolygon(xmin, ymin, xmax, ymax, str(label), exampleVecs[groupNum - 1])
+                # prepare label information to group
+                data['group'][int(group.split('p')[1])-1][group].append({"name": label})
+                data['group'][int(group.split('p')[1])-1][group].append({"xmin": xmin})
+                data['group'][int(group.split('p')[1]) - 1][group].append({"ymin": ymin})
+                data['group'][int(group.split('p')[1]) - 1][group].append({"xmax": xmax})
+                data['group'][int(group.split('p')[1]) - 1][group].append({"ymax": ymax})
+                #maya.mel.eval( data['group'][0])
+                exampleScenes[groupNum - 1].addPolygon(xmin, ymin, xmax, ymax, str(label), exampleVecs[groupNum - 1])
 
 
         # Get the information for the scenes we will be propagating
@@ -152,6 +172,14 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
         	for i in range(0, len(exampleScenes) - 1):
         		exampleScenes[i].desiredLabel = str(propLabel)
         	maya.mel.eval("print \"It Works!\"")
+
+        if argData.isFlagSet(kShortFlagJson):
+            filename = argData.flagArgumentString(kShortFlagJson, 0)
+
+
+            with open(filename, "w+") as outfile:
+                json.dump(data, outfile)
+
 
         if argData.isFlagSet(kShortFlagResult):
             finalResults = []
@@ -325,6 +353,8 @@ def syntaxCreator():
     syntax.addFlag( kShortFlagGroupProp, kLongFlagGroupProp, OpenMaya.MSyntax.kString )
 
     syntax.addFlag( kShortFlagResult, kLongFlagResult, OpenMaya.MSyntax.kDouble )
+
+    syntax.addFlag( kShortFlagJson, kLongFlagJson, OpenMaya.MSyntax.kString )
     
     # ... Add more flags here ...
         
