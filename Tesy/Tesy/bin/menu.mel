@@ -40,7 +40,7 @@ global proc updateNumGroups2( ) {
 
 
 global proc okLabel( ) {
-	
+
 	$groupName = `optionMenu -q -v groupMenu`;
 	$name = "scroll" + $groupName;
 	$label = `textField -q -text objectLabel`;
@@ -50,7 +50,7 @@ global proc okLabel( ) {
 
 	//polyEvaluate -boundingBox $shapeName[$i];
 	//$bound = `polyEvaluate -boundingBox $shapeName[0]`;
-	
+
 
 	if (size($shapeName)) {
 		//python("addExampleObject(\"Group2\", \"sink\", \"square3\")");
@@ -76,14 +76,14 @@ global proc okLabel( ) {
 
 	}
 
-	
+
 };
 
 
 
 
 global proc okLabel2( ) {
-	
+
 	$groupName = `optionMenu -q -v groupMenu2`;
 	$name = "scroll2" + $groupName;
 	$label = `textField -q -text objectLabel2`;
@@ -182,8 +182,15 @@ global proc labelWindow2( ) {
 
 
 global proc loadJsonFile( ) {
-
+	string $singleFilter = "JSON File (*.json)";
+	string $result[] = `fileDialog2 -fileFilter $singleFilter  -dialogStyle 2 -okCaption open`;
+	if (size($result)) {
+		print($result[0]);
+		polyX -jl $result[0];
+	}
 };
+
+
 
 
 global proc getText( ) {
@@ -202,6 +209,15 @@ global proc propagate() {
     polyX -r 1;
 };
 
+
+
+global proc cancelProp() {
+	polyX -rd 0;
+	deleteUI polyXWindow;
+};
+
+
+
 // Added
 global proc saveProp() {
     string $singleFilter = "JSON File (*.json)";
@@ -215,8 +231,8 @@ global proc saveProp() {
 
 
 global proc mainWindow( ) {
-    
-    window -title "Poly-X";
+
+    window -title "Poly-X" polyXWindow;
 
 	    frameLayout -labelVisible false;
 	    	rowLayout  -numberOfColumns 3;
@@ -234,10 +250,10 @@ global proc mainWindow( ) {
     			intField -width 200 -cc "updateNumGroups()" numPlacements;
     		setParent ..;
 
-    		
+
 	    	rowLayout  -numberOfColumns 2;
 	    		button -label "Label Object" -w 100 -command "labelWindow()";
-	    		
+
 	    			//scrollField -wordWrap false -text "List of labeled objects" -font obliqueLabelFont -editable false -command "getText()";
 	    		frameLayout -labelVisible false -bv true - height 150 -width 300;
 	    			scrollLayout scrollList;

@@ -46,6 +46,12 @@ kLongFlagResult = '-result'
 kShortFlagJson = '-j'
 kLongFlagJson = '-jsonFile'
 
+kShortFlagJsonLoad = '-jl'
+kLongFlagJsonLoad = '-jsonFileLoad'
+
+kShortFlagReset = '-rd'
+kLongFlagReset = '-resetData'
+
 propLabel = 'none'
 
 
@@ -67,35 +73,35 @@ def maya_useNewAPI():
 	expects to be passed, objects created using the Maya Python API 2.0.
 	"""
 	pass
-	
+
 ##########################################################
-# Plug-in 
+# Plug-in
 ##########################################################
 class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
-    
+
     def __init__(self):
         ''' Constructor. '''
         OpenMaya.MPxCommand.__init__(self)
-    
+
     def doIt(self, args):
         ''' Command execution. '''
-        
+
         # We recommend parsing your arguments first.
         self.parseArguments( args )
 
-        # Remove the following 'pass' keyword and replace it with the code you want to run. 
+        # Remove the following 'pass' keyword and replace it with the code you want to run.
         pass
-    
+
     def parseArguments(self, args):
-        ''' 
+        '''
         The presence of this function is not enforced,
         but helps separate argument parsing code from other
-        command code. 
+        command code.
         '''
-        
+
         # The following MArgParser object allows you to check if specific flags are set.
         argData = OpenMaya.MArgParser( self.syntax(), args )
-        
+
         # Get the information for the example scenes
         if argData.isFlagSet( kShortFlagGroup ) and argData.isFlagSet(kShortFlagLabel) and argData.isFlagSet(kShortFlagXMin) \
             and argData.isFlagSet(kShortFlagXMax) and argData.isFlagSet(kShortFlagYMin) and argData.isFlagSet(kShortFlagYMax):
@@ -128,11 +134,15 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
             	#scene = sim.Scene(group)
             	#poly = sim.Polygon(sim.vec2(xmin, ymin), sim.vec2(xmax, ymax), str(label))
                 # prepare label information to group
-                data['group'][int(group.split('p')[1])-1][group].append({"name": label})
-                data['group'][int(group.split('p')[1])-1][group].append({"xmin": xmin})
-                data['group'][int(group.split('p')[1]) - 1][group].append({"ymin": ymin})
-                data['group'][int(group.split('p')[1]) - 1][group].append({"xmax": xmax})
-                data['group'][int(group.split('p')[1]) - 1][group].append({"ymax": ymax})
+                data['group'][int(group.split('p')[1])-1][group].append({"name": label,
+                                                                         "xmin": xmin,
+                                                                         "ymin": ymin,
+                                                                         "xmax": xmax,
+                                                                         "ymax": ymax})
+                # data['group'][int(group.split('p')[1])-1][group].append({"xmin": xmin})
+                # data['group'][int(group.split('p')[1]) - 1][group].append({"ymin": ymin})
+                # data['group'][int(group.split('p')[1]) - 1][group].append({"xmax": xmax})
+                # data['group'][int(group.split('p')[1]) - 1][group].append({"ymax": ymax})
                 #maya.mel.eval( data['group'][0])
                 exampleScenes[groupNum - 1].addPolygon(xmin, ymin, xmax, ymax, str(label), exampleVecs[groupNum - 1])
 
@@ -176,10 +186,45 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
         if argData.isFlagSet(kShortFlagJson):
             filename = argData.flagArgumentString(kShortFlagJson, 0)
 
-
             with open(filename, "w+") as outfile:
                 json.dump(data, outfile)
 
+        if argData.isFlagSet(kShortFlagJsonLoad):
+            # parse json file here
+            filename = argData.flagArgumentString(kShortFlagJsonLoad, 0)
+
+            with open (filename) as infile:
+                indata = json.load(infile)
+                numGroups = len(indata['group'])
+                i = 0
+                for gr in indata['group']:
+                    for key in gr.keys():
+                        groupName = key
+                        groupNum = int(groupName[-1])
+                        if (groupNum > 0):
+                            if (groupNum > len(exampleScenes)):
+                                for x in range(len(exampleScenes), groupNum):
+                                    scene = sim.Scene("Group" + str(x))
+                                    vec = sim.VecPoly()
+                                    exampleScenes.append(scene)
+                                    exampleVecs.append(vec)
+                        for l in indata['group'][i][key]:
+                            labelName = l['name']
+                            xmin = l['xmin']
+                            ymin = l['ymin']
+                            xmax = l['xmax']
+                            ymax = l['ymax']
+                            exampleScenes[groupNum - 1].addPolygon(xmin, ymin, xmax, ymax, str(labelName),
+                                                               exampleVecs[groupNum - 1])
+                    i = i + 1
+
+        if argData.isFlagSet(kShortFlagReset):
+            del exampleScenes[:]
+            del exampleVecs[:]
+            del propagateScenes[:]
+            del propagateVecs[:]
+            data.clear()
+            data['group'] = []
 
         if argData.isFlagSet(kShortFlagResult):
             finalResults = []
@@ -324,9 +369,9 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
                 maya.mel.eval("scale -x " + str(scaleX) + " -z " + str(scaleY) + ";")
                 maya.mel.eval("move -x " + str(centerX) + " -z " + str(centerY) +";")
 
-            
-            
-        
+
+
+
         # ... If there are more flags, process them here ...
 
 ##########################################################
@@ -334,13 +379,14 @@ class MyCommandWithFlagClass( OpenMaya.MPxCommand ):
 ##########################################################
 def cmdCreator():
     ''' Create an instance of our command. '''
-    return MyCommandWithFlagClass() 
+    return MyCommandWithFlagClass()
+
 
 def syntaxCreator():
     ''' Defines the argument and flag syntax for this command. '''
     syntax = OpenMaya.MSyntax()
-    
-    # In this example, our flag will be expecting a numeric value, denoted by OpenMaya.MSyntax.kDouble. 
+
+    # In this example, our flag will be expecting a numeric value, denoted by OpenMaya.MSyntax.kDouble.
     syntax.addFlag( kShortFlagGroup, kLongFlagGroup, OpenMaya.MSyntax.kString )
     syntax.addFlag( kShortFlagLabel, kLongFlagLabel, OpenMaya.MSyntax.kString )
     syntax.addFlag( kShortFlagXMin, kLongFlagXMin, OpenMaya.MSyntax.kDouble )
@@ -355,11 +401,13 @@ def syntaxCreator():
     syntax.addFlag( kShortFlagResult, kLongFlagResult, OpenMaya.MSyntax.kDouble )
 
     syntax.addFlag( kShortFlagJson, kLongFlagJson, OpenMaya.MSyntax.kString )
-    
+    syntax.addFlag(kShortFlagJsonLoad, kLongFlagJsonLoad, OpenMaya.MSyntax.kString)
+    syntax.addFlag(kShortFlagReset, kLongFlagReset, OpenMaya.MSyntax.kDouble)
+
     # ... Add more flags here ...
-        
+
     return syntax
-    
+
 def initializePlugin( mobject ):
     ''' Initialize the plug-in when Maya loads it. '''
     mplugin = OpenMaya.MFnPlugin( mobject )
@@ -380,6 +428,7 @@ def uninitializePlugin( mobject ):
         sys.stderr.write( 'Failed to unregister command: ' + kPluginCmdName )
 
     maya.mel.eval("deleteUI $menu;");
+
 
 ##########################################################
 # Sample usage.
