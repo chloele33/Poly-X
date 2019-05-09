@@ -188,6 +188,8 @@ global proc loadJsonFile( ) {
 		print($result[0]);
 		polyX -jl $result[0];
 	}
+	confirmDialog -title "JSON file loaded" -message "Examples loaded. Please proceed to label the output scenes" -button "Ok";
+
 };
 
 
